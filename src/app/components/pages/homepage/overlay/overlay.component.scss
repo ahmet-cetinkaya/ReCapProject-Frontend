@@ -1,0 +1,46 @@
+@import "../../../../../styles.scss";
+
+:host {
+  display: block;
+  position: relative;
+  z-index: 0;
+  * {
+  }
+
+  .display-6 {
+    font-weight: 600;
+  }
+
+  #card-bg {
+    position: absolute;
+    right: 20rem;
+    width: 35rem;
+    height: 35rem;
+    transform: rotate(45deg);
+    z-index: -2;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      left: 7rem;
+      top: -8rem;
+      opacity: 0.1;
+      transform: rotate(-45deg);
+    }
+  }
+
+  #cards {
+    .card {
+      i {
+        transform: scale(1);
+        transition: transform 0.2s;
+      }
+
+      &:hover {
+        i {
+          transform: scale(1.5);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div id="filter-by-color-buttons" class="d-flex d-none d-lg-block">
+  <a *ngFor="let color of colors" class="btn">
+    <i
+      class="fas fa-circle fa-2x text-shadow-xl"
+      [ngStyle]="{ color: color.name }"
+    ></i>
+  </a>
+</div>
+
+<div id="filter-by-color-select-menu" class="d-block d-lg-none">
+  <select class="form-select">
+    <option selected>Choose a color</option>
+    <option *ngFor="let color of colors" value="{{ color.id }}">
+      {{ color.name }}
+    </option>
+  </select>
+</div>

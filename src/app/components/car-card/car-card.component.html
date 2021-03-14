@@ -1,0 +1,23 @@
+<div class="card bg-light rounded-2 shadow overflow-hidden">
+  <a href="#" class="card-img d-flex justify-content-center align-items-center">
+    <img
+      src="{{ carImageUrl }}"
+      class="card-img-top"
+      alt="Rent {{ carDetail.brandName }} {{
+        carDetail.carName
+      }} - ReCapProject"
+    />
+  </a>
+  <div class="card-body">
+    <span
+      class="model-year border border-secondary text-muted rounded-1 px-3 fw-light"
+    >
+      {{ carDetail.modelYear }}
+    </span>
+    <h5 class="card-title">
+      {{ carDetail.brandName }} {{ carDetail.carName }}
+    </h5>
+    <p class="mt-1 card-text text-primary fs-3">${{ carDetail.dailyPrice }}</p>
+    <a href="#" class="btn btn-primary w-100">Rent Now</a>
+  </div>
+</div>

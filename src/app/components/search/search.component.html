@@ -1,0 +1,40 @@
+<div class="bg-light col-12 col-xl-8 rounded-1 shadow my-5 my-xl-0 p-3 ps-4">
+  <form class="row">
+    <div class="col-md form-group">
+      <label for="pick-up-date-input" class="form-label text-dark"
+        >Pick-up Location:</label
+      >
+      <select class="form-select">
+        <option selected>Choose a location</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="col-md form-group">
+      <label for="pick-up-date-input" class="form-label text-dark"
+        >Pick-up Date:</label
+      >
+      <input
+        class="form-control"
+        type="datetime-local"
+        value="{{ DateTimeNow }}"
+        id="pick-up-date-input"
+      />
+    </div>
+    <div class="col-md form-group">
+      <label for="return-date-input" class="form-label text-dark"
+        >Return Date:</label
+      >
+      <input
+        class="form-control"
+        type="datetime-local"
+        value="{{ DateTimeNow }}"
+        id="return-date-input"
+      />
+    </div>
+    <button class="col-lg btn btn-primary rounded-1 mt-3 p-3 m-lg-0 p-lg-0">
+      Search
+    </button>
+  </form>
+</div>

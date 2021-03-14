@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../src/assets/fonts/Poppins/poppins.scss";
+
+$dark: #222831;
+$light-dark: #393e46;
+$main-color: #00adb5;
+$light-main-color: #b3fcff;
+$light: #eeeeee;
+
+:host {
+  font-family: "Poppins";
+}
+
+.bg-dark,
+.btn-dark {
+  background: $dark !important;
+  color: $light;
+}
+
+.bg-light {
+  background: $light !important;
+  color: $dark !important;
+}
+
+.bg-transparent {
+  background: transparent !important;
+  border: transparent !important;
+}
+
+.bg-primary-gradient {
+  background: rgb(2, 188, 196);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 188, 196, 1) 0%,
+    rgba(0, 173, 181, 1) 45%
+  );
+}
+
+.bg-primary {
+  background: $main-color !important;
+}
+
+.btn-primary {
+  background: $main-color !important;
+  border-color: $main-color !important;
+}
+
+.rounded-1 {
+  border-radius: 0.5rem !important;
+}
+
+.rounded-2 {
+  border-radius: 1rem !important;
+}
+
+.rounded-3 {
+  border-radius: 2rem !important;
+}
+
+.flip-vertical {
+  transform: scaleY(-1);
+}
+
+.text-primary {
+  color: #00adb5 !important;
+}
+
+.w-70 {
+  width: 70% !important;
+}
+
+.text-shadow-xl {
+  text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25) !important;
+}
