@@ -1,0 +1,12 @@
+@import "../../../../styles.scss";
+
+
+.carousel-item {
+    height: 30rem;
+    width: 30rem;
+    img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

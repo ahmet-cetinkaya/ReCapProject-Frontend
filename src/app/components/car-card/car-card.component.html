@@ -1,5 +1,8 @@
 <div class="card bg-light rounded-2 shadow overflow-hidden">
-  <a href="#" class="card-img d-flex justify-content-center align-items-center">
+  <div
+    routerLink="/car/{{ carDetail.id }}"
+    class="card-img d-flex justify-content-center align-items-center cursor-pointer"
+  >
     <img
       src="{{ carImageUrl }}"
       class="card-img-top"
@@ -7,7 +10,7 @@
         carDetail.carName
       }} - ReCapProject"
     />
-  </a>
+  </div>
   <div class="card-body">
     <span
       class="model-year border border-secondary text-muted rounded-1 px-3 fw-light"
@@ -18,6 +21,8 @@
       {{ carDetail.brandName }} {{ carDetail.carName }}
     </h5>
     <p class="mt-1 card-text text-primary fs-3">${{ carDetail.dailyPrice }}</p>
-    <a href="#" class="btn btn-primary w-100">Rent Now</a>
+    <button class="btn btn-primary w-100" routerLink="/car/{{ carDetail.id }}">
+      Rent Now
+    </button>
   </div>
 </div>

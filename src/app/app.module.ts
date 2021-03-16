@@ -16,6 +16,7 @@ import { HomepageComponent } from './components/pages/homepage/homepage.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { CustomersComponent } from './components/pages/customers/customers.component';
 import { RentalsComponent } from './components/pages/rentals/rentals.component';
+import { CarPageComponent } from './components/pages/car-page/car-page.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RentalsComponent } from './components/pages/rentals/rentals.component';
     FooterComponent,
     CustomersComponent,
     RentalsComponent,
+    CarPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

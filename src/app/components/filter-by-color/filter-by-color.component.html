@@ -1,16 +1,36 @@
 <div id="filter-by-color-buttons" class="d-flex d-none d-lg-block">
-  <a *ngFor="let color of colors" class="btn">
+  <button
+    class="btn {{ isActive() }} me-2 rounded-1"
+    (click)="setActiveColor()"
+    routerLink=""
+  >
+    All
+  </button>
+  <div
+    *ngFor="let color of colors"
+    class="btn"
+    (click)="setActiveColor(color.id)"
+    routerLink="/cars/color/{{ color.id }}"
+  >
     <i
       class="fas fa-circle fa-2x text-shadow-xl"
       [ngStyle]="{ color: color.name }"
     ></i>
-  </a>
+  </div>
 </div>
 
 <div id="filter-by-color-select-menu" class="d-block d-lg-none">
-  <select class="form-select">
-    <option selected>Choose a color</option>
-    <option *ngFor="let color of colors" value="{{ color.id }}">
+  <select
+    class="form-select"
+    (change)="routeToCarsByColor($event)"
+    value="{{ activeColorId }}"
+  >
+    <option [selected]="isSelected()">All</option>
+    <option
+      *ngFor="let color of colors"
+      value="{{ color.id }}"
+      [selected]="isSelected(color.id)"
+    >
       {{ color.name }}
     </option>
   </select>

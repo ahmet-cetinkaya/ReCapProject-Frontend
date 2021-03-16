@@ -18,7 +18,7 @@
       <input
         class="form-control"
         type="datetime-local"
-        value="{{ DateTimeNow }}"
+        value="{{ DateTimeNow.toJSON().substr(0, 16) }}"
         id="pick-up-date-input"
       />
     </div>
@@ -29,7 +29,7 @@
       <input
         class="form-control"
         type="datetime-local"
-        value="{{ DateTimeNow }}"
+        value="{{ DateTimeNow.toJSON().substr(0, 16) }}"
         id="return-date-input"
       />
     </div>

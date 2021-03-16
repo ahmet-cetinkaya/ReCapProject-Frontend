@@ -1,27 +1,33 @@
 <div id="filter-by-brand" class="d-flex d-none d-lg-block">
   <button
-    class="btn {{
-      activeBrandId == -1 ? 'btn-primary' : ''
-    }} me-2 rounded-1 brand-button"
-    (click)="changeActiveBrand(-1)"
+    class="btn {{ isActive() }} me-2 rounded-1 brand-button"
+    (click)="setActiveBrand()"
+    routerLink=""
   >
     All
   </button>
   <button
     *ngFor="let brand of brands"
-    class="btn {{
-      activeBrandId == brand.id ? 'btn-primary' : ''
-    }} me-2 rounded-1 brand-button"
-    (click)="changeActiveBrand(brand.id)"
+    class="btn {{ isActive(brand.id) }} me-2 rounded-1 brand-button"
+    (click)="setActiveBrand(brand.id)"
+    routerLink="/cars/brand/{{ brand.id }}"
   >
     {{ brand.name }}
   </button>
 </div>
 
 <div id="filter-by-brand" class="d-block d-lg-none">
-  <select class="form-select">
-    <option selected>Choose a brand</option>
-    <option *ngFor="let brand of brands" value="{{ brand.id }}">
+  <select
+    class="form-select"
+    (change)="routeToCarsByBrand($event)"
+    value="{{ activeBrandId }}"
+  >
+    <option [selected]="isSelected()">All</option>
+    <option
+      *ngFor="let brand of brands"
+      value="{{ brand.id }}"
+      [selected]="isSelected(brand.id)"
+    >
       {{ brand.name }}
     </option>
   </select>

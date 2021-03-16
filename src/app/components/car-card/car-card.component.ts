@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
 import { CarImageService } from 'src/app/services/car-image.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-car-card',

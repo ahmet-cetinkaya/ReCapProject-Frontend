@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  DateTimeNow: string = new Date().toJSON().substr(0, 16);
+  DateTimeNow: Date = new Date();
 
   constructor() {}
 

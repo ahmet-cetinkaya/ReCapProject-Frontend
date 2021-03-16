@@ -49,7 +49,8 @@
 </details>
 
 ## About The Project
-![Frontend-Demo](https://user-images.githubusercontent.com/53148314/111072942-d58f8380-84ed-11eb-9571-fc3db45bfad2.png)
+![Frontend-Demo](https://user-images.githubusercontent.com/53148314/111346249-183c9180-868f-11eb-94f8-9707a9576e2e.png)
+![Frontend-Demo](https://user-images.githubusercontent.com/53148314/111346285-1ffc3600-868f-11eb-9cd5-96d381ca469a.png)
 
 <p align="center">Under Development</p>
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Color } from '../models/color';
 import { ListResponseModel } from '../models/ListResponseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,12 @@ export class ColorService {
   getColors(): Observable<ListResponseModel<Color>> {
     return this.httpClient.get<ListResponseModel<Color>>(
       `${this.apiUrl}/getall`
+    );
+  }
+
+  getBrandById(brandId: number): Observable<SingleResponseModel<Color>> {
+    return this.httpClient.get<SingleResponseModel<Color>>(
+      `${this.apiUrl}/getbyid?id=${brandId}`
     );
   }
 }

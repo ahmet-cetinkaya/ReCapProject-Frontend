@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Car } from '../models/car';
 import { CarDetail } from '../models/carDetail';
 import { ListResponseModel } from '../models/ListResponseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +19,27 @@ export class CarService {
     return this.httpClient.get<ListResponseModel<Car>>(`${this.apiUrl}/getall`);
   }
 
+  getCarById(carId: number): Observable<SingleResponseModel<Car>> {
+    return this.httpClient.get<SingleResponseModel<Car>>(
+      `${this.apiUrl}/getbyid?id=${carId}`
+    );
+  }
+
   getCarDetails(): Observable<ListResponseModel<CarDetail>> {
     return this.httpClient.get<ListResponseModel<CarDetail>>(
       `${this.apiUrl}/getcardetails`
     );
   }
 
-  getCarsByBrandId(id: number): Observable<ListResponseModel<Car>> {
-    return this.httpClient.get<ListResponseModel<Car>>(
+  getCarDetailsByBrand(id: number): Observable<ListResponseModel<CarDetail>> {
+    return this.httpClient.get<ListResponseModel<CarDetail>>(
       `${this.apiUrl}/getcarsbybrandid?id=${id}`
+    );
+  }
+
+  getCarDetailsByColor(id: number): Observable<ListResponseModel<CarDetail>> {
+    return this.httpClient.get<ListResponseModel<CarDetail>>(
+      `${this.apiUrl}/getcarsbycolorid?id=${id}`
     );
   }
 }
