@@ -4,14 +4,15 @@ import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
-  selector: 'app-filter-by-brand',
-  templateUrl: './filter-by-brand.component.html',
-  styleUrls: ['./filter-by-brand.component.scss'],
+  selector: 'app-filter-by-brand-bar',
+  templateUrl: './filter-by-brand-bar.component.html',
+  styleUrls: ['./filter-by-brand-bar.component.scss'],
 })
-export class FilterByBrandComponent implements OnInit {
+export class FilterByBrandBarComponent implements OnInit {
   brands: Brand[] = [];
   dataLoaded: boolean = false;
-  activeBrandId?: number;
+  activeBrandName?: string;
+  filterText: string = '';
 
   constructor(
     private brandService: BrandService,
@@ -23,14 +24,15 @@ export class FilterByBrandComponent implements OnInit {
     this.getBrands();
     this.getActiveBrandFromParam();
   }
+
   getActiveBrandFromParam() {
     this.activatedRoute.params.subscribe((params) => {
-      if (params['brandId']) this.setActiveBrand(params['brandId']);
+      if (params['brandName']) this.setActiveBrand(params['brandName']);
     });
   }
 
-  setActiveBrand(id?: number) {
-    this.activeBrandId = id;
+  setActiveBrand(brandName?: string) {
+    this.activeBrandName = brandName;
   }
 
   getBrands() {
@@ -40,23 +42,23 @@ export class FilterByBrandComponent implements OnInit {
     });
   }
 
-  isActive(brandId?: number): string {
-    return this.activeBrandId == brandId ? 'btn-primary' : '';
+  isActive(brandName?: string): string {
+    return this.activeBrandName == brandName ? 'btn-primary' : '';
   }
 
   routeToCarsByBrand(event: any) {
-    let targetValue: number = event.target.value;
+    let targetValue: string = event.target.value;
 
-    if (isNaN(targetValue)) {
+    if (!targetValue) {
       this.setActiveBrand();
       this.router.navigateByUrl('');
     } else {
       this.setActiveBrand(targetValue);
-      this.router.navigateByUrl(`/cars/brand/${this.activeBrandId}`);
+      this.router.navigateByUrl(`/cars/brand/${this.activeBrandName}`);
     }
   }
 
-  isSelected(brandId?: number): boolean {
-    return this.activeBrandId == brandId;
+  isSelected(brandName?: string): boolean {
+    return this.activeBrandName == brandName;
   }
 }

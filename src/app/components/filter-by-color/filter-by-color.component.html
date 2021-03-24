@@ -6,11 +6,32 @@
   >
     All
   </button>
+
+  <div class="dropdown d-inline">
+    <button
+      class="btn btn-light dropdown-toggle text-secondary"
+      type="button"
+      id="search-brand-button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i class="fas fa-search"></i>
+    </button>
+    <ul
+      class="dropdown-menu bg-light shadow p-0"
+      aria-labelledby="search-brand-button"
+    >
+      <li>
+        <input class="form-control" type="text" [(ngModel)]="filterText" />
+      </li>
+    </ul>
+  </div>
+
   <div
-    *ngFor="let color of colors"
+    *ngFor="let color of colors | filterColor: filterText"
     class="btn"
-    (click)="setActiveColor(color.id)"
-    routerLink="/cars/color/{{ color.id }}"
+    (click)="setActiveColor(color.name)"
+    routerLink=""
   >
     <i
       class="fas fa-circle fa-2x text-shadow-xl"
@@ -23,13 +44,13 @@
   <select
     class="form-select"
     (change)="routeToCarsByColor($event)"
-    value="{{ activeColorId }}"
+    value="{{ activeColorName }}"
   >
     <option [selected]="isSelected()">All</option>
     <option
       *ngFor="let color of colors"
-      value="{{ color.id }}"
-      [selected]="isSelected(color.id)"
+      value="{{ color.name }}"
+      [selected]="isSelected(color.name)"
     >
       {{ color.name }}
     </option>

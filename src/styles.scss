@@ -4,7 +4,7 @@ $dark: #222831;
 $light-dark: #393e46;
 $main-color: #00adb5;
 $light-main-color: #b3fcff;
-$light: #eeeeee;
+$light: #fafafa;
 
 :host {
   font-family: "Poppins";
@@ -72,6 +72,6 @@ $light: #eeeeee;
   text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25) !important;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }

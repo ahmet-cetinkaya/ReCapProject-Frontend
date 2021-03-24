@@ -11,7 +11,8 @@ import { ColorService } from 'src/app/services/color.service';
 export class FilterByColorComponent implements OnInit {
   colors: Color[] = [];
   dataLoaded: boolean = false;
-  activeColorId?: number;
+  activeColorName?: string;
+  filterText: string = '';
 
   constructor(
     private colorService: ColorService,
@@ -26,7 +27,7 @@ export class FilterByColorComponent implements OnInit {
 
   getActiveColorFromParam() {
     this.activatedRoute.params.subscribe((params) => {
-      if (params['colorId']) this.setActiveColor(params['colorId']);
+      if (params['colorName']) this.setActiveColor(params['colorName']);
     });
   }
 
@@ -37,27 +38,37 @@ export class FilterByColorComponent implements OnInit {
     });
   }
 
-  setActiveColor(colorId?: number) {
-    this.activeColorId = colorId;
+  setActiveColor(colorName?: string) {
+    this.activeColorName = colorName;
   }
 
-  isActive(colorId?: number): string {
-    return this.activeColorId == colorId ? 'btn-primary' : '';
+  isActive(colorName?: string): string {
+    return this.activeColorName == colorName ? 'btn-primary' : '';
   }
 
   routeToCarsByColor(event: any) {
-    let targetValue: number = event.target.value;
+    let targetValue: string = event.target.value;
 
-    if (isNaN(targetValue)) {
+    if (!targetValue) {
       this.setActiveColor();
       this.router.navigateByUrl('');
     } else {
       this.setActiveColor(targetValue);
-      this.router.navigateByUrl(`/cars/color/${this.activeColorId}`);
+      this.router.navigateByUrl(
+        `${this.router.url.includes('/cars') ? '.' : '/cars'}/color/${
+          this.activeColorName
+        }`
+      );
     }
   }
 
-  isSelected(brandId?: number): boolean {
-    return this.activeColorId == brandId;
+  isSelected(colorName?: string): boolean {
+    return this.activeColorName == colorName;
+  }
+
+  getNavigateByUrl(): string {
+    return `${this.router.url.includes('/cars') ? '.' : '/cars'}/color/${
+      this.activeColorName
+    }`;
   }
 }

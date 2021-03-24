@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterByBrandComponent } from './filter-by-brand.component';
+import { FilterByBrandBarComponent } from './filter-by-brand-bar.component';
 
 describe('FilterByBrandComponent', () => {
-  let component: FilterByBrandComponent;
-  let fixture: ComponentFixture<FilterByBrandComponent>;
+  let component: FilterByBrandBarComponent;
+  let fixture: ComponentFixture<FilterByBrandBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FilterByBrandComponent ]
-    })
-    .compileComponents();
+      declarations: [FilterByBrandBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterByBrandComponent);
+    fixture = TestBed.createComponent(FilterByBrandBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

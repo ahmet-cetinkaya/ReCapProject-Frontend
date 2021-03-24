@@ -87,17 +87,36 @@
           </select>
         </div>
         <div class="col-md form-group">
-          <label for="pick-up-date-input" class="form-label text-dark"
+          <label for="rent-start-date-input" class="form-label text-dark"
             >Pick-up Date:</label
           >
           <input
+            [(ngModel)]="rentStartDate"
+            name="rentStartDate"
             class="form-control"
             type="datetime-local"
-            value="{{ DateTimeNow.toJSON().substr(0, 16) }}"
-            id="pick-up-date-input"
+            id="rent-start-date-input"
+            required
           />
         </div>
-        <button class="col-lg btn btn-primary rounded-1 mt-3 p-3 m-lg-0 p-lg-0">
+        <div class="col-md form-group">
+          <label for="rent-end-date-input" class="form-label text-dark"
+            >Return Date:</label
+          >
+          <input
+            [(ngModel)]="rentEndDate"
+            name="rentEndDate"
+            class="form-control"
+            type="datetime-local"
+            id="rent-end-date-input"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          (click)="rentCar()"
+          class="col-lg btn btn-primary rounded-1 mt-3 p-3 m-lg-0 p-lg-0"
+        >
           Book!
         </button>
       </form>

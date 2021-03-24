@@ -49,7 +49,9 @@
 </details>
 
 ## About The Project
-![Frontend-Demo](https://user-images.githubusercontent.com/53148314/111346249-183c9180-868f-11eb-94f8-9707a9576e2e.png)
+
+![Frontend-Demo](https://user-images.githubusercontent.com/53148314/112030118-fa69a380-8b4a-11eb-9eba-8c7f188234c9.png)
+![Frontend-Demo](https://user-images.githubusercontent.com/53148314/112030223-179e7200-8b4b-11eb-9582-1b97f0535d81.png)
 ![Frontend-Demo](https://user-images.githubusercontent.com/53148314/111346285-1ffc3600-868f-11eb-9cd5-96d381ca469a.png)
 
 <p align="center">Under Development</p>
@@ -61,9 +63,8 @@
 [![Scss](https://img.shields.io/badge/Scss-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/docs/)
 
-
-
 ## Usage
+
 ### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

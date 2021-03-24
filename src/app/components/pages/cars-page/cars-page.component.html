@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <app-car-filter
+        (carFilterTextEvent)="receiveCarFilterText($event)"
+      ></app-car-filter>
+    </div>
+    <div class="col">
+      <app-cars-list
+        [carFilterText]="carFilterText"
+        class="col-4"
+      ></app-cars-list>
+    </div>
+  </div>
+</div>

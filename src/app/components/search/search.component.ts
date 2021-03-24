@@ -10,7 +10,5 @@ export class SearchComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.DateTimeNow);
-  }
+  ngOnInit(): void {}
 }

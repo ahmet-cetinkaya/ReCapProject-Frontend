@@ -4,8 +4,6 @@
   display: block;
   position: relative;
   z-index: 0;
-  * {
-  }
 
   .display-6 {
     font-weight: 600;
@@ -40,6 +38,11 @@
         i {
           transform: scale(1.5);
         }
+      }
+
+      .bg-primary-gradient {
+        width: 80px;
+        height: 80px;
       }
     }
   }

@@ -31,15 +31,28 @@ export class CarService {
     );
   }
 
-  getCarDetailsByBrand(id: number): Observable<ListResponseModel<CarDetail>> {
+  getCarDetailsByBrand(
+    brandName: string
+  ): Observable<ListResponseModel<CarDetail>> {
     return this.httpClient.get<ListResponseModel<CarDetail>>(
-      `${this.apiUrl}/getcarsbybrandid?id=${id}`
+      `${this.apiUrl}/getcardetailsbybrandname?name=${brandName}`
     );
   }
 
-  getCarDetailsByColor(id: number): Observable<ListResponseModel<CarDetail>> {
+  getCarDetailsByColor(
+    colorName: string
+  ): Observable<ListResponseModel<CarDetail>> {
     return this.httpClient.get<ListResponseModel<CarDetail>>(
-      `${this.apiUrl}/getcarsbycolorid?id=${id}`
+      `${this.apiUrl}/getcardetailsbycolorname?name=${colorName}`
+    );
+  }
+
+  getCarDetailsByBrandNameAndColorName(
+    brandName: string,
+    colorName: string
+  ): Observable<ListResponseModel<CarDetail>> {
+    return this.httpClient.get<ListResponseModel<CarDetail>>(
+      `${this.apiUrl}/getcardetailsbybrandnameandcolorname?brandName=${brandName}&colorName=${colorName}`
     );
   }
 }

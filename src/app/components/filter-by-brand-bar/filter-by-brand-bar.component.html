@@ -1,0 +1,46 @@
+<div id="filter-by-brand" class="d-flex align-items-center">
+  <span class="text-secondary fw-bold me-3">Brand:</span>
+
+  <div class="d-none d-lg-flex">
+    <button
+      class="btn {{ isActive() }} me-2 rounded-1 brand-button"
+      (click)="setActiveBrand()"
+      routerLink=""
+    >
+      All
+    </button>
+
+    <button
+      *ngFor="let brand of brands | sliceBrand: 5"
+      class="btn {{ isActive(brand.name) }} me-2 rounded-1 brand-button"
+      (click)="setActiveBrand(brand.name)"
+      routerLink=""
+      [queryParams]="{ brand: brand.name }"
+    >
+      {{ brand.name }}
+    </button>
+
+    <a class="btn me-2 rounded-1 brand-button" routerLink="/cars">
+      Explore <span class="text-primary fw-bold">{{ brands.length }}+</span>
+    </a>
+  </div>
+
+  <div class="d-block d-lg-none">
+    <select
+      class="form-select"
+      [(ngModel)]="activeBrandName"
+      routerLink=""
+      [queryParams]="{ brand: activeBrandName }"
+    >
+      <!-- (change)="routeToCarsByBrand($event)" -->
+      <option [selected]="isSelected()" value="{{ undefined }}">All</option>
+      <option
+        *ngFor="let brand of brands"
+        value="{{ brand.name }}"
+        [selected]="isSelected(brand.name)"
+      >
+        {{ brand.name }}
+      </option>
+    </select>
+  </div>
+</div>
