@@ -1,0 +1,49 @@
+<div class="d-flex mb-3">
+  <h1 class="display-6 fw-bold m-0">Car Lists</h1>
+  <button class="btn btn-primary ms-4 btn-lg" routerLink="add">
+    <i class="fas fa-plus"></i> Add
+  </button>
+</div>
+
+<app-car-filter [isCompact]="true"></app-car-filter>
+
+<div class="card p-2 rounded-2 shadow-xl">
+  <table class="table table-hover">
+    <thead class="card-header">
+      <tr class="text-uppercase">
+        <th scope="col">Id</th>
+        <th scope="col">Car Name</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Color</th>
+        <th scope="col">Model Year</th>
+        <th scope="col">Daily Price</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="card-body shadow">
+      <tr *ngFor="let carDetail of carDetails">
+        <th scope="row">{{ carDetail.id }}</th>
+        <td>{{ carDetail.carName | titlecase }}</td>
+        <td>{{ carDetail.brandName | titlecase }}</td>
+        <td>{{ carDetail.colorName | titlecase }}</td>
+        <td>{{ carDetail.modelYear }}</td>
+        <td>{{ carDetail.dailyPrice | currency }}</td>
+        <td class="d-flex justify-content-between">
+          <button
+            routerLink="edit/images/{{ carDetail.id }}"
+            class="btn btn-sm btn-success shadow-sm"
+          >
+            <i class="fas fa-images"></i>
+          </button>
+
+          <button
+            routerLink="edit/{{ carDetail.id }}"
+            class="btn btn-sm btn-primary shadow-sm"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

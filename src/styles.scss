@@ -75,3 +75,7 @@ $light: #fafafa;
 .cursor-pointer {
   cursor: pointer;
 }
+
+.shadow-xl {
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 20%) !important;
+}

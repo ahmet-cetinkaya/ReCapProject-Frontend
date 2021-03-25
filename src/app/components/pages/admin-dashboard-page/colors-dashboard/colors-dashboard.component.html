@@ -1,0 +1,32 @@
+<div class="d-flex mb-3">
+  <h1 class="display-6 fw-bold m-0">Color Lists</h1>
+  <button class="btn btn-primary ms-4 btn-lg" routerLink="add">
+    <i class="fas fa-plus"></i> Add
+  </button>
+</div>
+
+<div class="card p-2 rounded-2 shadow-xl">
+  <table class="table table-hover">
+    <thead class="card-header">
+      <tr class="text-uppercase">
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="card-body shadow">
+      <tr *ngFor="let color of colors">
+        <th scope="row">{{ color.id }}</th>
+        <td>{{ color.name | titlecase }}</td>
+        <td class="d-flex justify-content-center">
+          <button
+            routerLink="edit/{{ color.id }}"
+            class="btn btn-sm btn-primary shadow-sm"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

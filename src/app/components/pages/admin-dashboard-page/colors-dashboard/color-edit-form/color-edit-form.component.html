@@ -1,0 +1,25 @@
+<h1 class="display-6 fw-bold mb-3">Car Add</h1>
+<div class="card p-2 rounded-2 shadow-xl">
+  <div class="card-body shadow">
+    <form [formGroup]="colorEditForm">
+      <div class="form-group mb-3">
+        <label for="color-name-input" class="fw-bold mb-3">Name</label>
+        <input
+          type="text"
+          id="color-name-input"
+          formControlName="name"
+          class="form-control"
+          placeholder="Color Name"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="card-footer d-flex justify-content-between">
+    <button (click)="delete()" class="btn btn-danger btn-lg shadow-sm w-25">
+      Delete
+    </button>
+    <button (click)="update()" class="btn btn-primary btn-lg shadow-sm w-50">
+      Edit
+    </button>
+  </div>
+</div>

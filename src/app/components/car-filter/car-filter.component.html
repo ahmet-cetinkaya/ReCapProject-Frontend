@@ -1,87 +1,142 @@
-<div id="search-car">
-  <div class="form-floating">
-    <input
-      type="text"
-      class="form-control"
-      id="search-car-input"
-      placeholder="Car Name"
-      [(ngModel)]="carFilterText"
-      (ngModelChange)="sendCarFilterText()"
-    />
-    <label for="search-car-input"><i class="fas fa-search"></i> Search</label>
-  </div>
-</div>
-<div id="brand-filter">
-  <div class="d-flex align-content-center my-3">
-    <span class="display-6 fw-bold d-flex align-items-center">Brand</span>
-    <div class="form-floating ms-3">
+<div *ngIf="!isCompact" id="car-filter">
+  <div id="search-car">
+    <div class="form-floating">
       <input
         type="text"
-        class="form-control border-0"
-        id="search-brand-input"
-        placeholder="Brand Name"
-        [(ngModel)]="brandFilterText"
+        class="form-control"
+        id="search-car-input"
+        placeholder="Car Name"
+        [(ngModel)]="carFilterText"
+        (ngModelChange)="sendCarFilterText()"
       />
-      <label for="search-brand-input" class="text-muted"
-        ><i class="fas fa-search"></i> Search</label
-      >
+      <label for="search-car-input"><i class="fas fa-search"></i> Search</label>
     </div>
   </div>
+  <div id="brand-filter">
+    <div class="d-flex align-content-center my-3">
+      <span class="display-6 fw-bold d-flex align-items-center">Brand</span>
+      <div class="form-floating ms-3">
+        <input
+          type="text"
+          class="form-control border-0"
+          id="search-brand-input"
+          placeholder="Brand Name"
+          [(ngModel)]="brandFilterText"
+        />
+        <label for="search-brand-input" class="text-muted"
+          ><i class="fas fa-search"></i> Search</label
+        >
+      </div>
+    </div>
 
-  <select
-    class="form-select"
-    size="5"
-    [(ngModel)]="activeBrandName"
-    [compareWith]="isBrandSelected"
-  >
-    <option value="">All</option>
-    <option
-      *ngFor="let brand of brands | filterBrand: brandFilterText"
-      value="{{ brand.name }}"
+    <select
+      class="form-select"
+      size="5"
+      [(ngModel)]="activeBrandName"
+      [compareWith]="isBrandSelected"
     >
-      {{ brand.name }}
-    </option>
-  </select>
+      <option value="">All</option>
+      <option
+        *ngFor="let brand of brands | filterBrand: brandFilterText"
+        value="{{ brand.name }}"
+      >
+        {{ brand.name }}
+      </option>
+    </select>
+  </div>
+
+  <div id="color-filter">
+    <div class="d-flex align-content-center my-3">
+      <span class="display-6 fw-bold d-flex align-items-center">Color</span>
+      <div class="form-floating ms-3">
+        <input
+          type="text"
+          class="form-control border-0"
+          id="search-color-input"
+          placeholder="Color Name"
+          [(ngModel)]="colorFilterText"
+        />
+        <label for="search-color-input" class="text-muted"
+          ><i class="fas fa-search"></i> Search</label
+        >
+      </div>
+    </div>
+    <select
+      class="form-select"
+      size="5"
+      [(ngModel)]="activeColorName"
+      [compareWith]="isColorSelected"
+    >
+      <option value="">All</option>
+      <option
+        *ngFor="let color of colors | filterColor: colorFilterText"
+        [value]="color.name"
+      >
+        {{ color.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mx-3">
+    <button
+      class="btn btn-primary my-3 w-100"
+      routerLink="./"
+      [queryParams]="{ brand: activeBrandName, color: activeColorName }"
+    >
+      Filter
+    </button>
+  </div>
 </div>
 
-<div id="color-filter">
-  <div class="d-flex align-content-center my-3">
-    <span class="display-6 fw-bold d-flex align-items-center">Color</span>
-    <div class="form-floating ms-3">
-      <input
-        type="text"
-        class="form-control border-0"
-        id="search-color-input"
-        placeholder="Color Name"
-        [(ngModel)]="colorFilterText"
-      />
-      <label for="search-color-input" class="text-muted"
-        ><i class="fas fa-search"></i> Search</label
+<div
+  *ngIf="isCompact"
+  id="car-filter-compact"
+  class="rounded-2 shadow-xl p-3 mb-3"
+>
+  <div class="row">
+    <div class="col-2 fs-5 d-flex align-items-center">
+      <i class="fas fa-filter me-2"></i> <span class="fw-light">Filter by</span>
+    </div>
+    <div class="col">
+      <select
+        class="form-select"
+        [(ngModel)]="activeBrandName"
+        [compareWith]="isBrandSelected"
       >
+        <option value="">All</option>
+        <option
+          *ngFor="let brand of brands | filterBrand: brandFilterText"
+          value="{{ brand.name }}"
+        >
+          {{ brand.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col">
+      <select
+        class="form-select"
+        [(ngModel)]="activeColorName"
+        [compareWith]="isColorSelected"
+      >
+        <option value="">All</option>
+        <option
+          *ngFor="let color of colors | filterColor: colorFilterText"
+          [value]="color.name"
+        >
+          {{ color.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col">
+      <button
+        class="btn btn-primary w-100"
+        routerLink="./"
+        [queryParams]="{ brand: activeBrandName, color: activeColorName }"
+      >
+        Filter
+      </button>
     </div>
   </div>
-  <select
-    class="form-select"
-    size="5"
-    [(ngModel)]="activeColorName"
-    [compareWith]="isColorSelected"
-  >
-    <option value="">All</option>
-    <option
-      *ngFor="let color of colors | filterColor: colorFilterText"
-      [value]="color.name"
-    >
-      {{ color.name }}
-    </option>
-  </select>
-</div>
-
-<div class="mx-3">
-  <button
-    class="btn btn-primary my-3 w-100"
-    routerLink="./"
-    [queryParams]="{ brand: activeBrandName, color: activeColorName }"
-  >
-    Filter
-  </button>
 </div>

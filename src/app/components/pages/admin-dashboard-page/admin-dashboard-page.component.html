@@ -1,0 +1,40 @@
+<div class="container min-vh-100">
+  <div class="row">
+    <div
+      id="sidebar"
+      class="col-md-2 bg-primary-gradient rounded-2 shadow-xl p-3"
+    >
+      <a
+        routerLink="./"
+        routerLinkActive="active"
+        class="mb-3 btn btn-lg btn-primary text-start w-100"
+        ><i class="fas fa-tachometer-alt me-3"></i>
+        <span class="fw-light">Dashboard</span>
+      </a>
+      <a
+        routerLink="cars"
+        routerLinkActive="active"
+        class="mb-3 btn btn-lg btn-primary text-start w-100"
+        ><i class="fas fa-car me-3"></i>
+        <span class="fw-light">Cars</span>
+      </a>
+      <a
+        routerLink="brands"
+        routerLinkActive="active"
+        class="mb-3 btn btn-lg btn-primary text-start w-100"
+        ><i class="fab fa-bandcamp me-3"></i>
+        <span class="fw-light">Brands</span>
+      </a>
+      <a
+        routerLink="colors"
+        routerLinkActive="active"
+        class="mb-3 btn btn-lg btn-primary text-start w-100"
+        ><i class="fas fa-palette me-3"></i>
+        <span class="fw-light">Colors</span>
+      </a>
+    </div>
+    <div class="col ps-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

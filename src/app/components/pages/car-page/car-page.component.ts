@@ -60,7 +60,7 @@ export class CarPageComponent implements OnInit {
   }
 
   getColorById(colorId: number) {
-    this.colorService.getBrandById(colorId).subscribe((response) => {
+    this.colorService.getColorById(colorId).subscribe((response) => {
       this.color = response.data;
     });
   }
