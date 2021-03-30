@@ -37,17 +37,9 @@ export class BrandAddFormComponent implements OnInit {
     }
 
     let brandModule: Brand = { ...this.brandAddForm.value };
-    this.brandService.add(brandModule).subscribe(
-      (response) => {
-        this.toastrService.success(response.message);
-        this.router.navigate(['admin', 'brands']);
-      },
-      (responseError) => {
-        if (responseError.error.Errors.length > 0)
-          responseError.error.Errors.forEach((error: any) =>
-            this.toastrService.error(error.ErrorMessage)
-          );
-      }
-    );
+    this.brandService.add(brandModule).subscribe((response) => {
+      this.toastrService.success(response.message);
+      this.router.navigate(['admin', 'brands']);
+    });
   }
 }

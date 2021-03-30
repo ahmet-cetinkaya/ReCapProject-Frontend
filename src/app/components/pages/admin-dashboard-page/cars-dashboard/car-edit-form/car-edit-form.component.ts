@@ -94,59 +94,34 @@ export class CarEditFormComponent implements OnInit {
     }
 
     let carModule: Car = { id: this.car.id, ...this.carEditForm.value };
-    this.carService.update(carModule).subscribe(
-      (response) => {
-        this.toastrService.success(response.message);
-        this.router.navigate(['admin', 'cars']);
-      },
-      (responseError) => {
-        if (responseError.error.Errors.length > 0)
-          responseError.error.Errors.forEach((error: any) =>
-            this.toastrService.error(error.ErrorMessage)
-          );
-      }
-    );
+    this.carService.update(carModule).subscribe((response) => {
+      this.toastrService.success(response.message);
+      this.router.navigate(['admin', 'cars']);
+    });
   }
 
   delete() {
-    //TODO : Refactor
     if (window.confirm('Are you sure to delete car?')) this.deleteCarImages();
   }
 
   deleteCar() {
     let carModule: Car = { id: this.car.id, ...this.carEditForm.value };
-    this.carService.delete(carModule).subscribe(
-      (response) => {
-        this.toastrService.success(response.message);
-        this.router.navigate(['admin', 'cars']);
-      },
-      (responseError) => {
-        if (responseError.error.Errors.lenght > 0)
-          responseError.error.Errors.forEach((error: any) =>
-            this.toastrService.error(error.ErrorMessage)
-          );
-      }
-    );
+    this.carService.delete(carModule).subscribe((response) => {
+      this.toastrService.success(response.message);
+      this.router.navigate(['admin', 'cars']);
+    });
   }
 
   deleteCarImages() {
     this.carImages.forEach((carImage, index) => {
-      this.carImageService.delete(carImage).subscribe(
-        (response) => {
+      if (carImage.id !== 0)
+        this.carImageService.delete(carImage).subscribe((response) => {
           this.toastrService.success(
             carImage.date.toString(),
-            'Deleted car image successfully.'
+            response.message
           );
-
-          if (index == this.carImages.length - 1) this.deleteCar();
-        },
-        (responseError) => {
-          if (responseError.error.Errors.length > 0)
-            responseError.error.Errors.forEach((error: any) => {
-              this.toastrService.error(error.ErrorMessage);
-            });
-        }
-      );
+        });
+      if (index == this.carImages.length - 1) this.deleteCar();
     });
   }
 }

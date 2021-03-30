@@ -37,17 +37,9 @@ export class ColorAddFormComponent implements OnInit {
     }
 
     let colorModule: Color = { ...this.colorAddForm.value };
-    this.colorService.add(colorModule).subscribe(
-      (response) => {
-        this.toastrService.success(response.message);
-        this.router.navigate(['admin', 'colors']);
-      },
-      (responseError) => {
-        if (responseError.error.Errors.length > 0)
-          responseError.error.Errors.forEach((error: any) =>
-            this.toastrService.error(error.ErrorMessage)
-          );
-      }
-    );
+    this.colorService.add(colorModule).subscribe((response) => {
+      this.toastrService.success(response.message);
+      this.router.navigate(['admin', 'colors']);
+    });
   }
 }

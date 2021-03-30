@@ -1,7 +1,16 @@
-<h1 class="display-6 fw-bold mb-3">Car Edit</h1>
+<div class="d-flex justify-content-between">
+  <h1 class="display-6 fw-bold mb-3">Car Edit</h1>
+  <button
+    *ngIf="car"
+    routerLink="/admin/cars/edit/images/{{ car.id }}"
+    class="btn btn-sm btn-success shadow-sm mb-3"
+  >
+    <i class="fas fa-images"></i> Car Images
+  </button>
+</div>
 <div class="card p-2 rounded-2 shadow-xl">
   <div class="card-body shadow">
-    <form [formGroup]="carEditForm">
+    <form *ngIf="carEditForm" [formGroup]="carEditForm">
       <div class="form-group mb-3">
         <label for="car-name-input" class="fw-bold mb-3">Car Name</label>
         <input

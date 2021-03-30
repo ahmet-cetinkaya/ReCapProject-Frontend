@@ -53,18 +53,10 @@ export class BrandEditFormComponent implements OnInit {
     }
 
     let brandModule: Brand = { id: this.brand.id, ...this.brandEditForm.value };
-    this.brandService.update(brandModule).subscribe(
-      (response) => {
-        this.toastrService.success(response.message);
-        this.router.navigate(['admin', 'brands']);
-      },
-      (responseError) => {
-        if (responseError.error.Errors.length > 0)
-          responseError.error.Errors.forEach((error: any) =>
-            this.toastrService.error(error.ErrorMessage)
-          );
-      }
-    );
+    this.brandService.update(brandModule).subscribe((response) => {
+      this.toastrService.success(response.message);
+      this.router.navigate(['admin', 'brands']);
+    });
   }
 
   delete() {
@@ -73,18 +65,10 @@ export class BrandEditFormComponent implements OnInit {
         id: this.brand.id,
         ...this.brandEditForm.value,
       };
-      this.brandService.delete(brandModule).subscribe(
-        (response) => {
-          this.toastrService.success(response.message);
-          this.router.navigate(['admin', 'brands']);
-        },
-        (responseError) => {
-          if (responseError.error.Errors.length > 0)
-            responseError.error.Errors.forEach((error: any) =>
-              this.toastrService.error(error.ErrorMessage)
-            );
-        }
-      );
+      this.brandService.delete(brandModule).subscribe((response) => {
+        this.toastrService.success(response.message);
+        this.router.navigate(['admin', 'brands']);
+      });
     }
   }
 }

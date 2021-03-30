@@ -44,6 +44,7 @@ import { AuthInterceptor } from 'src/interceptors/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { AppReducers } from './store/app.reducer';
 import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
+import { HttpErrorInterceptor } from 'src/interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { LogoutPageComponent } from './components/pages/logout-page/logout-page.
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

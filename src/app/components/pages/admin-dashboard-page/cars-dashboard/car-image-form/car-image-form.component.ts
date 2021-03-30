@@ -57,38 +57,18 @@ export class CarImageFormComponent implements OnInit {
   upload(file: File): void {
     if (!file) return;
 
-    this.carImageService.add(this.carId, file).subscribe(
-      (response) => {
-        this.getCarImagesById(this.carId);
-        this.toastrService.success(
-          file.name,
-          'Uploaded car image successfully!'
-        );
-      },
-      (responseError) => {
-        if (responseError.error.Errors.length > 0) {
-          responseError.error.Errors.forEach((error: any) => {
-            this.toastrService.error(error.ErrorMessage);
-          });
-        }
-      }
-    );
+    this.carImageService.add(this.carId, file).subscribe((response) => {
+      this.getCarImagesById(this.carId);
+      this.toastrService.success(file.name, 'Uploaded car image successfully!');
+    });
   }
 
   delete(carImage: CarImage) {
     if (window.confirm('Are you sure to delete car image?')) {
-      this.carImageService.delete(carImage).subscribe(
-        (response) => {
-          this.toastrService.success('Deleted car image successfully.');
-          this.getCarImagesById(this.carId);
-        },
-        (responseError) => {
-          if (responseError.error.Errors.length > 0)
-            responseError.error.Errors.forEach((error: any) => {
-              this.toastrService.error(error.ErrorMessage);
-            });
-        }
-      );
+      this.carImageService.delete(carImage).subscribe((response) => {
+        this.toastrService.success('Deleted car image successfully.');
+        this.getCarImagesById(this.carId);
+      });
     }
   }
 

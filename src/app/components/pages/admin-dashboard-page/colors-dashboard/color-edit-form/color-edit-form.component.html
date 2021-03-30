@@ -1,7 +1,7 @@
 <h1 class="display-6 fw-bold mb-3">Car Add</h1>
 <div class="card p-2 rounded-2 shadow-xl">
   <div class="card-body shadow">
-    <form [formGroup]="colorEditForm">
+    <form *ngIf="colorEditForm" [formGroup]="colorEditForm">
       <div class="form-group mb-3">
         <label for="color-name-input" class="fw-bold mb-3">Name</label>
         <input
