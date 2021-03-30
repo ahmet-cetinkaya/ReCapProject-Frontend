@@ -8,7 +8,7 @@ import { OverlayComponent } from './components/pages/homepage/overlay/overlay.co
 import { SearchComponent } from './components/search/search.component';
 import { CarsListComponent } from './components/cars-list/cars-list.component';
 import { CarCardComponent } from './components/car-card/car-card.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FilterByBrandBarComponent } from './components/pages/homepage/filter-by-brand-bar/filter-by-brand-bar.component';
 import { FilterByColorComponent } from './components/filter-by-color/filter-by-color.component';
 import { CarFilterComponent } from './components/car-filter/car-filter.component';
@@ -38,6 +38,12 @@ import { BrandAddFormComponent } from './components/pages/admin-dashboard-page/b
 import { BrandEditFormComponent } from './components/pages/admin-dashboard-page/brands-dashboard/brand-edit-form/brand-edit-form.component';
 import { ColorAddFormComponent } from './components/pages/admin-dashboard-page/colors-dashboard/color-add-form/color-add-form.component';
 import { ColorEditFormComponent } from './components/pages/admin-dashboard-page/colors-dashboard/color-edit-form/color-edit-form.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { AuthInterceptor } from 'src/interceptors/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { AppReducers } from './store/app.reducer';
+import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +78,9 @@ import { ColorEditFormComponent } from './components/pages/admin-dashboard-page/
     BrandEditFormComponent,
     ColorAddFormComponent,
     ColorEditFormComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    LogoutPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,8 +92,11 @@ import { ColorEditFormComponent } from './components/pages/admin-dashboard-page/
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
+    StoreModule.forRoot(AppReducers),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

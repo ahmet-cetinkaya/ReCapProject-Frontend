@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { UserDetail } from 'src/app/models/userDetail';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  userDetail$: Observable<UserDetail | undefined> = this.authService
+    .userDetail$;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 }

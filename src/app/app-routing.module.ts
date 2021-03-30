@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from 'src/guards/admin.guard';
+import { LoginGuard } from 'src/guards/login.guard';
 import { AdminDashboardPageComponent } from './components/pages/admin-dashboard-page/admin-dashboard-page.component';
 import { BrandAddFormComponent } from './components/pages/admin-dashboard-page/brands-dashboard/brand-add-form/brand-add-form.component';
 import { BrandEditFormComponent } from './components/pages/admin-dashboard-page/brands-dashboard/brand-edit-form/brand-edit-form.component';
@@ -15,7 +17,10 @@ import { CarPageComponent } from './components/pages/car-page/car-page.component
 import { CarsPageComponent } from './components/pages/cars-page/cars-page.component';
 import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
 import { HomepageComponent } from './components/pages/homepage/homepage.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomepageComponent },
@@ -35,6 +40,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardPageComponent,
+    canActivate: [LoginGuard, AdminGuard],
     children: [
       {
         path: 'cars',
@@ -78,6 +84,9 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: RegisterPageComponent },
+  { path: 'logout', component: LogoutPageComponent },
   { path: '404', component: NotFoundPageComponent },
   { path: '**', redirectTo: '404' },
 ];

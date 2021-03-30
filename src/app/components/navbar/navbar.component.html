@@ -8,27 +8,60 @@
     >
       <ul class="navbar-nav text-center me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">Rent</a>
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Rent</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="cars">Cars</a>
+          <a class="nav-link" routerLink="cars" routerLinkActive="active"
+            >Cars</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Service</a>
+          <a class="nav-link">Service</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Support</a>
+          <a class="nav-link">Support</a>
         </li>
       </ul>
     </div>
 
-    <div class="d-flex justify-content-center order-0 order-lg-1">
-      <a class="btn mx-2 py-2 px-4 rounded-1 bg-transparent" href="#"
+    <div
+      *ngIf="!(userDetail$ | async)"
+      class="d-flex justify-content-center order-0 order-lg-1"
+    >
+      <a class="btn mx-2 py-2 px-4 rounded-1 bg-transparent" routerLink="signup"
         >Sign Up</a
       >
-      <a class="btn btn-primary mx-2 py-2 px-4 rounded-1 shadow" href="#"
-        >Sign in</a
+      <a
+        class="btn btn-primary mx-2 py-2 px-4 rounded-1 shadow"
+        routerLink="login"
+        >Log in</a
       >
+    </div>
+
+    <div *ngIf="userDetail$ | async" class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        id="accountMenu"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ (userDetail$ | async)?.firstName }}
+        {{ (userDetail$ | async)?.lastName }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="accountMenu">
+        <li>
+          <a routerLink="account" class="dropdown-item">Account Settings</a>
+        </li>
+        <li><a routerLink="logout" class="dropdown-item">Log out</a></li>
+      </ul>
     </div>
 
     <button

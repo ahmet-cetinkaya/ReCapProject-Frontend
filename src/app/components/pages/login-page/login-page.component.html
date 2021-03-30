@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md my-auto">
+      <h1 class="fw-bold mb-5">Log in</h1>
+      <form [formGroup]="loginForm">
+        <div class="mb-3">
+          <label for="email-input" class="form-label"
+            >Enter your email address</label
+          >
+          <div class="input-group has-validation">
+            <input
+              formControlName="email"
+              type="email"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.controls['email'].errors &&
+                  (loginForm.controls['email'].touched ||
+                    loginForm.controls['email'].dirty)
+              }"
+              id="email-input"
+              placeholder="name@example.com"
+            />
+            <div class="invalid-feedback">Please enter your email.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password-input" class="form-label"
+            >Enter your password</label
+          >
+          <div class="input-group has-validation">
+            <input
+              [type]="isPasswordHidden()"
+              formControlName="password"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.controls['password'].errors &&
+                  (loginForm.controls['password'].touched ||
+                    loginForm.controls['password'].dirty)
+              }"
+              id="password-input"
+              placeholder="***********"
+            />
+            <div
+              (click)="togglePasswordHidden()"
+              class="input-group-text cursor-pointer"
+            >
+              <i class="fa {{ isPasswordHiddenIcon() }}" aria-hidden="true"></i>
+            </div>
+            <div class="invalid-feedback">Please enter your password.</div>
+          </div>
+        </div>
+
+        <button
+          (click)="login()"
+          class="btn btn-primary btn-lg rounded-1 shadow-xl w-100"
+        >
+          Log in
+        </button>
+      </form>
+
+      <div class="d-flex mt-5">
+        <p class="my-auto text-secondary me-2">If you are not signed up yet</p>
+        <a routerLink="/signup" class="btn btn-outline-success rounded-3"
+          >Sign up now</a
+        >
+      </div>
+    </div>
+
+    <div class="col-md d-none d-md-block my-auto">
+      <h1 class="display-6 fw-light text-secondary text-center mb-5">
+        Nice to see you again
+      </h1>
+      <img
+        id="car-image"
+        class="img-fluid"
+        src="../../../../assets/images/white-car-2.png"
+      />
+      <a class="d-none" href="https://www.freepik.com/vectors/background"
+        >Background vector created by rawpixel.com - www.freepik.com</a
+      >
+    </div>
+  </div>
+</div>
