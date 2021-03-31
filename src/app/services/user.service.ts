@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { UserDetail } from '../models/userDetail';
+import { UserDetailUpdateModel } from '../models/userDetailUpdateModel';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +25,15 @@ export class UserService {
           userMail: userMail,
         },
       }
+    );
+  }
+
+  updateUserDetails(
+    userDetailUpdateModel: UserDetailUpdateModel
+  ): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(
+      `${this.apiControllerUrl}/updateuserdetails`,
+      userDetailUpdateModel
     );
   }
 }

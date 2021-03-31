@@ -46,6 +46,7 @@ import { AppReducers } from './store/app.reducer';
 import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
 import { HttpErrorInterceptor } from 'src/interceptors/http-error.interceptor';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { AccountPageComponent } from './components/pages/account-page/account-page.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     RegisterPageComponent,
     LogoutPageComponent,
     LoadingSpinnerComponent,
+    AccountPageComponent,
   ],
   imports: [
     BrowserModule,

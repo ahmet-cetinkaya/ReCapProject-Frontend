@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { LoginGuard } from 'src/guards/login.guard';
+import { AccountPageComponent } from './components/pages/account-page/account-page.component';
 import { AdminDashboardPageComponent } from './components/pages/admin-dashboard-page/admin-dashboard-page.component';
 import { BrandAddFormComponent } from './components/pages/admin-dashboard-page/brands-dashboard/brand-add-form/brand-add-form.component';
 import { BrandEditFormComponent } from './components/pages/admin-dashboard-page/brands-dashboard/brand-edit-form/brand-edit-form.component';
@@ -87,6 +88,11 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: RegisterPageComponent },
   { path: 'logout', component: LogoutPageComponent },
+  {
+    path: 'account',
+    canActivate: [LoginGuard],
+    component: AccountPageComponent,
+  },
   { path: '404', component: NotFoundPageComponent },
   { path: '**', redirectTo: '404' },
 ];
