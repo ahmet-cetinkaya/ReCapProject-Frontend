@@ -4,6 +4,7 @@ export interface Car {
   brandId: number;
   colorId: number;
   dailyPrice: number;
+  minFindeksScore: number;
   modelYear: number;
   description: number;
 }

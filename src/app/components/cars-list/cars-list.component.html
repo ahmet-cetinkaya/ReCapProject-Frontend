@@ -8,14 +8,7 @@
   Not exist car by filter yet!
 </div>
 <div id="cars-list" class="row mx-3">
-  <div
-    *ngIf="!dataLoaded"
-    class="d-flex justify-content-center align-items-center"
-  >
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
+  <app-loading-spinner *ngIf="!dataLoaded"></app-loading-spinner>
   <app-car-card
     *ngFor="let carDetail of carDetails | filterCarDetail: carFilterText"
     [carDetail]="carDetail"

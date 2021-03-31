@@ -40,6 +40,7 @@ export class CarAddFormComponent implements OnInit {
       brandId: ['', Validators.required],
       colorId: ['', Validators.required],
       dailyPrice: ['', Validators.required],
+      minFindeksScore: ['', Validators.required],
       modelYear: ['', Validators.required],
       description: ['', Validators.required],
       brandFilterText: [''],

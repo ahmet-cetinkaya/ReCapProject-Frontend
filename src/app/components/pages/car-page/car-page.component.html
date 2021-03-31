@@ -1,5 +1,8 @@
 <div class="container-fluid container-md py-5 mb-5">
-  <div class="row">
+  <app-loading-spinner
+    *ngIf="!car && !brand && !carImages"
+  ></app-loading-spinner>
+  <div *ngIf="car && brand && carImages" class="row">
     <div class="col-lg">
       <h1 class="display-1 fw-bold">{{ brand?.name }}</h1>
       <h2 class="display-3 fw-light">

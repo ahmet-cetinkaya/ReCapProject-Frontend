@@ -6,6 +6,7 @@ import { LoginModel } from 'src/app/models/loginModel';
 import { RegisterModel } from 'src/app/models/registerModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register-page',
@@ -22,7 +23,8 @@ export class RegisterPageComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private localStorageService: LocalStorageService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -42,18 +44,22 @@ export class RegisterPageComponent implements OnInit {
     if (!this.registerForm.valid) return;
 
     let registerModel: RegisterModel = { ...this.registerForm.value };
-    this.authService.register(registerModel).subscribe(
-      (response) => {
-        this.localStorageService.set('tokenModel', response.data);
-        this.localStorageService.set(
-          'userMail',
-          this.registerForm.get('email')?.value
-        );
-        this.toastrService.info(response.message);
-        this.router.navigateByUrl('');
-      },
-      (errorResponse) => this.toastrService.error(errorResponse.error)
-    );
+    this.authService.register(registerModel).subscribe((response) => {
+      this.localStorageService.set('tokenModel', response.data);
+      this.localStorageService.set(
+        'userMail',
+        this.registerForm.get('email')?.value
+      );
+      this.getUserDetailByEmail(this.registerForm.get('email')?.value);
+      this.toastrService.info(response.message);
+      this.router.navigate(['']);
+    });
+  }
+
+  getUserDetailByEmail(mail: string) {
+    this.userService.getUserDetailByEmail(mail).subscribe((response) => {
+      this.authService.setUserDetail(response.data);
+    });
   }
 
   togglePasswordHidden() {

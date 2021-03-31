@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
 import { Car } from 'src/app/models/car';
 import { CarImage } from 'src/app/models/carImage';
 import { Color } from 'src/app/models/color';
 import { Rental } from 'src/app/models/rental';
+import { UserDetail } from 'src/app/models/userDetail';
+import { AuthService } from 'src/app/services/auth.service';
 import { BrandService } from 'src/app/services/brand.service';
 import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
@@ -25,6 +29,8 @@ export class CarPageComponent implements OnInit {
   DateTimeNow: Date = new Date();
   rentStartDate: Date = this.DateTimeNow;
   rentEndDate: Date = this.DateTimeNow;
+  userDetail$: Observable<UserDetail | undefined> = this.authService
+    .userDetail$;
 
   constructor(
     private carService: CarService,
@@ -34,7 +40,8 @@ export class CarPageComponent implements OnInit {
     private rentalService: RentalService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -80,24 +87,30 @@ export class CarPageComponent implements OnInit {
   }
 
   rentCar() {
-    let rental: Rental = {
-      carId: this.car.id,
-      customerId: 1003, // Test
-      rentStartDate: new Date(this.rentStartDate),
-      rentEndDate: new Date(this.rentEndDate),
-      returnDate: undefined,
-    };
-    this.rentalService.isRentable(rental).subscribe(
-      (response) => {
-        this.toastr.info('You are redirected to payment page.');
-        this.rentalService.rentalCheckout = rental;
-        this.router.navigateByUrl('/checkout');
-      },
-      (error) => {
-        if (error.status == 500)
-          this.toastr.error('Ops, there seems to be a problem.');
-        else this.toastr.error(error.error.message);
+    this.userDetail$.subscribe((userDetail) => {
+      if (!userDetail) {
+        this.router.navigate(['login']);
+        this.toastr.info('You must log in.');
+        return;
       }
-    );
+
+      let rental: Rental = {
+        carId: this.car.id,
+        customerId: userDetail.customerId,
+        rentStartDate: new Date(this.rentStartDate),
+        rentEndDate: new Date(this.rentEndDate),
+        returnDate: undefined,
+      };
+
+      this.rentalService.isRentable(rental).subscribe(() => {
+        this.rentalService
+          .checkFindeksScoreSufficiency(rental)
+          .subscribe(() => {
+            this.toastr.info('You are redirected to payment page.');
+            this.rentalService.rentalCheckout = rental;
+            this.router.navigateByUrl('/checkout');
+          });
+      });
+    });
   }
 }

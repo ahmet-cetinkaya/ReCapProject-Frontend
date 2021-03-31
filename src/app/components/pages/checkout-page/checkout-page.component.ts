@@ -24,7 +24,7 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   payment() {
-    this.paymentService.test().subscribe(
+    this.paymentService.payment().subscribe(
       (response) => {
         this.paymentSuccessfull = true;
         this.toastr.success(response.message);

@@ -25,7 +25,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           responseError.error.Errors.forEach((error: any) =>
             this.toastrService.error(error.ErrorMessage)
           );
-        else this.toastrService.error('An unexpected problem has occurred.');
+        else if (responseError.error.message)
+          this.toastrService.error(responseError.error.message);
+        else this.toastrService.error('An problem has occurred.');
 
         console.log(
           `! ~ file: http-error.interceptor.ts ~ line 24 ~ error`,
