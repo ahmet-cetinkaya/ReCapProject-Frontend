@@ -39,17 +39,18 @@ export class WalletPageComponent implements OnInit {
     this.creditCardService
       .getAllByCustomerId(this.userDetail.customerId)
       .subscribe((response) => {
-        if (response.success) {
-          this.creditCards = response.data;
-          this.dataLoaded = true;
-        }
+        this.creditCards = response.data;
+        this.dataLoaded = true;
       });
   }
 
   deleteCreditCard(creditCard: CreditCard) {
     if (confirm('Are you sure to delete credit card?'))
       this.creditCardService.delete(creditCard).subscribe((response) => {
-        if (response.success) this.toastrService.success(response.message);
+        this.toastrService.success(response.message);
+        this.creditCards = this.creditCards.filter(
+          (c) => c.id !== creditCard.id
+        );
       });
   }
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Brand } from 'src/app/models/brand';
 import { Car } from 'src/app/models/car';
 import { CarImage } from 'src/app/models/carImage';
@@ -29,25 +27,31 @@ export class CarPageComponent implements OnInit {
   DateTimeNow: Date = new Date();
   rentStartDate: Date = this.DateTimeNow;
   rentEndDate: Date = this.DateTimeNow;
-  userDetail$: Observable<UserDetail | undefined> = this.authService
-    .userDetail$;
+  userDetail?: UserDetail;
 
   constructor(
-    private carService: CarService,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
     private brandService: BrandService,
+    private carService: CarService,
     private colorService: ColorService,
     private carImageService: CarImageService,
     private rentalService: RentalService,
-    private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router,
-    private authService: AuthService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.getCarById(params['carId']);
     });
+    this.getUserDetailsFromStore();
+  }
+
+  getUserDetailsFromStore() {
+    this.authService.userDetail$.subscribe(
+      (userDetail) => (this.userDetail = userDetail)
+    );
   }
 
   getCarById(carId: number) {
@@ -61,20 +65,44 @@ export class CarPageComponent implements OnInit {
   }
 
   getBrandById(brandId: number) {
-    this.brandService.getBrandById(brandId).subscribe((response) => {
-      this.brand = response.data;
-    });
+    this.brandService
+      .getBrandById(brandId)
+      .subscribe((response) => (this.brand = response.data));
   }
 
   getColorById(colorId: number) {
-    this.colorService.getColorById(colorId).subscribe((response) => {
-      this.color = response.data;
-    });
+    this.colorService
+      .getColorById(colorId)
+      .subscribe((response) => (this.color = response.data));
   }
 
   getCarImagesById(carId: number) {
-    this.carImageService.getImagesByCarId(carId).subscribe((response) => {
-      this.carImages = response.data;
+    this.carImageService
+      .getImagesByCarId(carId)
+      .subscribe((response) => (this.carImages = response.data));
+  }
+
+  rentCar() {
+    if (!this.userDetail) {
+      this.router.navigate(['login']);
+      this.toastr.info('You must log in.');
+      return;
+    }
+
+    let rental: Rental = {
+      carId: this.car.id,
+      customerId: this.userDetail.customerId,
+      rentStartDate: new Date(this.rentStartDate),
+      rentEndDate: new Date(this.rentEndDate),
+      returnDate: undefined,
+    };
+
+    this.rentalService.isRentable(rental).subscribe(() => {
+      this.rentalService.checkFindeksScoreSufficiency(rental).subscribe(() => {
+        this.toastr.info('You are redirected to payment page.');
+        this.rentalService.rentalCheckout = rental;
+        this.router.navigateByUrl('/checkout');
+      });
     });
   }
 
@@ -84,33 +112,5 @@ export class CarPageComponent implements OnInit {
 
   getCarImageUrl(carImageId: number): string {
     return this.carImageService.getCarImageUrl(carImageId);
-  }
-
-  rentCar() {
-    this.userDetail$.subscribe((userDetail) => {
-      if (!userDetail) {
-        this.router.navigate(['login']);
-        this.toastr.info('You must log in.');
-        return;
-      }
-
-      let rental: Rental = {
-        carId: this.car.id,
-        customerId: userDetail.customerId,
-        rentStartDate: new Date(this.rentStartDate),
-        rentEndDate: new Date(this.rentEndDate),
-        returnDate: undefined,
-      };
-
-      this.rentalService.isRentable(rental).subscribe(() => {
-        this.rentalService
-          .checkFindeksScoreSufficiency(rental)
-          .subscribe(() => {
-            this.toastr.info('You are redirected to payment page.');
-            this.rentalService.rentalCheckout = rental;
-            this.router.navigateByUrl('/checkout');
-          });
-      });
-    });
   }
 }

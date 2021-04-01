@@ -67,8 +67,8 @@ export class CheckoutPageComponent implements OnInit {
     this.creditCardService
       .getAllByCustomerId(customerId)
       .subscribe((response) => {
-        if (response.success && response.data.length)
-          this.creditCards = response.data;
+        if (!response.data.length) return;
+        this.creditCards = response.data;
       });
   }
 
@@ -84,12 +84,10 @@ export class CheckoutPageComponent implements OnInit {
 
     this.paymentService.payment().subscribe(
       (response) => {
-        if (response.success) {
-          this.paymentSuccessfull = response.success;
-          this.toastrService.success(response.message);
-          this.addRental();
-          this.askSaveCreditCard();
-        }
+        this.paymentSuccessfull = response.success;
+        this.toastrService.success(response.message);
+        this.addRental();
+        this.askSaveCreditCard();
       },
       () => (this.paymentSuccessfull = false)
     );
@@ -103,9 +101,9 @@ export class CheckoutPageComponent implements OnInit {
       return;
     }
 
-    this.rentalService.add(rental).subscribe((response) => {
-      if (response.success) this.toastrService.success(response.message);
-    });
+    this.rentalService
+      .add(rental)
+      .subscribe((response) => this.toastrService.success(response.message));
   }
 
   askSaveCreditCard() {
@@ -122,7 +120,7 @@ export class CheckoutPageComponent implements OnInit {
 
   saveCreditCard(creditCard: CreditCard) {
     this.creditCardService.add(creditCard).subscribe((response) => {
-      if (response.success) this.toastrService.success(response.message);
+      this.toastrService.success(response.message);
     });
   }
 }

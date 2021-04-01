@@ -20,6 +20,7 @@ export class AccountPageComponent implements OnInit {
   accountForm!: FormGroup;
   userDetail$: Observable<UserDetail | undefined> = this.authService
     .userDetail$;
+  userDetail?: UserDetail;
   findeks!: Findeks;
   currentPasswordHidden: boolean = true;
   newPasswordHidden: boolean = true;
@@ -34,57 +35,62 @@ export class AccountPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUserDetailsAndFindeksThenCreateAccountForm();
+    this.getUserDetailsFromStore();
   }
 
-  getUserDetailsAndFindeksThenCreateAccountForm() {
-    this.userDetail$.pipe(first()).subscribe((userDetail) => {
+  getUserDetailsFromStore() {
+    this.authService.userDetail$.pipe(first()).subscribe((userDetail) => {
       if (!userDetail) return;
 
-      this.findeksService
-        .getByCustomerId(userDetail?.customerId)
-        .subscribe((response) => {
-          this.findeks = response.data;
-          this.accountForm = this.formBuilder.group({
-            firstName: [userDetail?.firstName, Validators.required],
-            lastName: [userDetail?.lastName, Validators.required],
-            companyName: [userDetail?.companyName, Validators.required],
-            nationalIdentity: [this.findeks.nationalIdentity],
-            currentPassword: ['', Validators.required],
-            newPassword: [''],
-          });
-        });
+      this.userDetail = userDetail;
+      this.createAccountFrom();
+      this.getFindeksByCustomerId(userDetail.customerId);
+    });
+  }
+
+  createAccountFrom() {
+    this.accountForm = this.formBuilder.group({
+      firstName: [this.userDetail?.firstName, Validators.required],
+      lastName: [this.userDetail?.lastName, Validators.required],
+      companyName: [this.userDetail?.companyName, Validators.required],
+      nationalIdentity: [''],
+      currentPassword: ['', Validators.required],
+      newPassword: [''],
+    });
+  }
+
+  getFindeksByCustomerId(customerId: number) {
+    this.findeksService.getByCustomerId(customerId).subscribe((response) => {
+      this.findeks = response.data;
+      this.accountForm
+        .get('nationalIdentity')
+        ?.setValue(this.findeks.nationalIdentity);
     });
   }
 
   updateAccount() {
     if (!this.accountForm.valid) return;
 
-    this.userDetail$.pipe(first()).subscribe((userDetail) => {
-      let userDetailUpdateModel: UserDetailUpdateModel = {
-        ...userDetail,
-        ...this.accountForm.value,
-      };
+    let userDetailUpdateModel: UserDetailUpdateModel = {
+      ...this.userDetail,
+      ...this.accountForm.value,
+    };
+    this.userService
+      .updateUserDetails(userDetailUpdateModel)
+      .subscribe((response) => {
+        if (!this.userDetail) return;
 
-      this.userService
-        .updateUserDetails(userDetailUpdateModel)
-        .subscribe((response) => {
-          if (response.success) {
-            if (userDetail) {
-              var newUserDetail: UserDetail = {
-                ...userDetail,
-                firstName: userDetailUpdateModel.firstName,
-                lastName: userDetailUpdateModel.lastName,
-                companyName: userDetailUpdateModel.companyName,
-              };
-              this.authService.setUserDetail(newUserDetail);
-            }
+        var newUserDetail: UserDetail = {
+          ...this.userDetail,
+          firstName: userDetailUpdateModel.firstName,
+          lastName: userDetailUpdateModel.lastName,
+          companyName: userDetailUpdateModel.companyName,
+        };
+        this.authService.setUserDetail(newUserDetail);
 
-            this.toastrService.success(response.message);
-            this.router.navigate(['']);
-          }
-        });
-    });
+        this.toastrService.success(response.message);
+        this.router.navigate(['']);
+      });
   }
 
   toggleCurrentPasswordHidden() {
