@@ -47,6 +47,8 @@ import { LogoutPageComponent } from './components/pages/logout-page/logout-page.
 import { HttpErrorInterceptor } from 'src/interceptors/http-error.interceptor';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { AccountPageComponent } from './components/pages/account-page/account-page.component';
+import { HiddenCreditCardNoPipe } from './pipes/hidden-credit-card-no.pipe';
+import { WalletPageComponent } from './components/pages/wallet-page/wallet-page.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { AccountPageComponent } from './components/pages/account-page/account-pa
     LogoutPageComponent,
     LoadingSpinnerComponent,
     AccountPageComponent,
+    HiddenCreditCardNoPipe,
+    WalletPageComponent,
   ],
   imports: [
     BrowserModule,

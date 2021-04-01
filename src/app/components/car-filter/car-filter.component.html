@@ -77,15 +77,13 @@
     </select>
   </div>
 
-  <div class="mx-3">
-    <button
-      class="btn btn-primary my-3 w-100"
-      routerLink="./"
-      [queryParams]="{ brand: activeBrandName, color: activeColorName }"
-    >
-      Filter
-    </button>
-  </div>
+  <button
+    class="btn btn-primary my-3 w-100"
+    routerLink="./"
+    [queryParams]="{ brand: activeBrandName, color: activeColorName }"
+  >
+    Filter
+  </button>
 </div>
 
 <div

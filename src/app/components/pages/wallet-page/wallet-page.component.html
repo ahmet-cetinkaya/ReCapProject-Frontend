@@ -1,0 +1,43 @@
+<div class="container">
+  <h1 class="fw-bold">Wallet</h1>
+  <app-loading-spinner *ngIf="!dataLoaded"></app-loading-spinner>
+  <h2 class="fw-light">Your credit cards</h2>
+  <div
+    *ngIf="dataLoaded && !creditCards.length"
+    class="alert alert-info"
+    role="alert"
+  >
+    You do not have a saved credit card yet.
+  </div>
+  <div *ngIf="creditCards.length">
+    <div
+      *ngFor="let creditCard of creditCards"
+      class="card rounded-2 shadow-lg"
+    >
+      <div class="card-body row align-items-center">
+        <div class="col-sm">{{ creditCard.nameSurname }}</div>
+        <div class="col-sm">
+          {{ creditCard.cardNumber | hiddenCreditCardNo }}
+        </div>
+        <div class="col-sm">
+          {{ creditCard.expMonth }}/{{ creditCard.expYear }}
+        </div>
+        <div class="col-sm">***</div>
+        <div class="col-sm d-flex align-items-center">
+          <i
+            class="fab fa-cc-{{ creditCard.cardType | lowercase }} fs-3 me-2"
+          ></i>
+          {{ creditCard.cardType }}
+        </div>
+        <div class="col-1">
+          <button
+            (click)="deleteCreditCard(creditCard)"
+            class="btn btn-danger w-100"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

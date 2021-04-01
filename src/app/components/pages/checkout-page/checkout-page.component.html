@@ -1,69 +1,115 @@
 <div class="container d-flex justify-content-center align-items-center">
-  <div *ngIf="paymentSuccessfull" id="payment-successfull">
-    <div class="text-center">
-      <i class="fas fa-check-circle text-success mb-5"></i>
-      <p class="display-6">Your payment is successful!</p>
-    </div>
-  </div>
-  <form *ngIf="!paymentSuccessfull">
-    <h1 class="display-6 fw-bold my-3">Payment</h1>
-    <div class="mb-3">
-      <label for="name-on-card-input" class="form-label">Name on card</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name-on-card-input"
-        placeholder="Ahmet Çetinkaya"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="name-on-card-input" class="form-label">Card number</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name-on-card-input"
-        placeholder="0000-0000-0000-0000"
-        required
-      />
+  <div>
+    <div *ngIf="paymentSuccessfull" id="payment-successfull">
+      <div class="text-center">
+        <i class="fas fa-check-circle text-success mb-5"></i>
+        <p class="display-6">Your payment is successful!</p>
+      </div>
     </div>
 
-    <div class="row">
-      <div class="col mb-3">
-        <label for="expiration-date-input" class="form-label"
-          >Expiration Date</label
+    <div *ngIf="!paymentSuccessfull">
+      <h1 class="display-6 fw-bold my-3">Payment</h1>
+      <div *ngIf="creditCards" class="mb-3">
+        <select
+          id="user-credit-cards-select"
+          class="form-select"
+          [ngModel]="selectedCreditCard"
+          (ngModelChange)="fillCardInformation($event)"
         >
-        <div id="expiration-date-input" class="input-group">
+          <option [ngValue]="undefined">Your Credit Cards</option>
+          <option *ngFor="let creditCard of creditCards" [ngValue]="creditCard">
+            {{ creditCard.nameSurname }} -
+            {{ creditCard.cardNumber | hiddenCreditCardNo }}
+          </option>
+        </select>
+      </div>
+
+      <form *ngIf="creditCardForm" [formGroup]="creditCardForm">
+        <div class="mb-3">
+          <label for="name-on-card-input" class="form-label"
+            >Name on card</label
+          >
           <input
-            type="number"
+            formControlName="nameSurname"
+            type="text"
             class="form-control"
-            placeholder="Month"
-            required
-          />
-          <span class="input-group-text">/</span>
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Year"
+            id="name-on-card-input"
+            placeholder="First Last"
             required
           />
         </div>
-      </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="mb-3">
+              <label for="card-number-input" class="form-label"
+                >Card number</label
+              >
+              <input
+                formControlName="cardNumber"
+                type="text"
+                class="form-control"
+                id="card-number-input"
+                placeholder="0000-0000-0000-0000"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="card-type-select" class="form-label">Card Type</label>
+              <select
+                id="card-type-select"
+                class="form-select"
+                formControlName="cardType"
+              >
+                <option value="Mastercard">Mastercard</option>
+                <option value="Visa">Visa</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-      <div class="col mb-3">
-        <label for="cvv-input" class="form-label">CVV</label>
-        <input
-          id="cvv-input"
-          type="number"
-          class="form-control"
-          placeholder="000"
-          required
-        />
-      </div>
+        <div class="row">
+          <div class="col mb-3">
+            <label for="expiration-date-input" class="form-label"
+              >Expiration Date</label
+            >
+            <div id="expiration-date-input" class="input-group">
+              <input
+                formControlName="expMonth"
+                type="number"
+                class="form-control"
+                placeholder="MM"
+                required
+              />
+              <span class="input-group-text">/</span>
+              <input
+                formControlName="expYear"
+                type="number"
+                class="form-control"
+                placeholder="YY"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col mb-3">
+            <label for="cvv-input" class="form-label">CVV</label>
+            <input
+              formControlName="cvc"
+              id="cvv-input"
+              type="number"
+              class="form-control"
+              placeholder="000"
+              required
+            />
+          </div>
+        </div>
+
+        <button (click)="payment()" type="submit" class="btn btn-primary w-100">
+          Pay
+        </button>
+      </form>
     </div>
-
-    <button (click)="payment()" type="submit" class="btn btn-primary w-100">
-      Pay
-    </button>
-  </form>
+  </div>
 </div>

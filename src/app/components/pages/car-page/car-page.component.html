@@ -94,7 +94,8 @@
             >Pick-up Date:</label
           >
           <input
-            [(ngModel)]="rentStartDate"
+            [ngModel]="rentStartDate | date: 'yyyy-MM-ddThh:mm'"
+            (ngModelChange)="rentStartDate = $event"
             name="rentStartDate"
             class="form-control"
             type="datetime-local"
@@ -107,7 +108,8 @@
             >Return Date:</label
           >
           <input
-            [(ngModel)]="rentEndDate"
+            [ngModel]="rentEndDate | date: 'yyyy-MM-ddThh:mm'"
+            (ngModelChange)="rentEndDate = $event"
             name="rentEndDate"
             class="form-control"
             type="datetime-local"

@@ -22,6 +22,7 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { LogoutPageComponent } from './components/pages/logout-page/logout-page.component';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { WalletPageComponent } from './components/pages/wallet-page/wallet-page.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomepageComponent },
@@ -92,6 +93,11 @@ const routes: Routes = [
     path: 'account',
     canActivate: [LoginGuard],
     component: AccountPageComponent,
+  },
+  {
+    path: 'wallet',
+    canActivate: [LoginGuard],
+    component: WalletPageComponent,
   },
   { path: '404', component: NotFoundPageComponent },
   { path: '**', redirectTo: '404' },

@@ -10,27 +10,34 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root',
 })
 export class RentalService {
-  apiUrl = `${environment.apiUrl}/rentals`;
+  apiControllerUrl = `${environment.apiUrl}/rentals`;
   rentalCheckout?: Rental;
 
   constructor(private httpClient: HttpClient) {}
 
   getRentals(): Observable<ListResponseModel<Rental>> {
     return this.httpClient.get<ListResponseModel<Rental>>(
-      `${this.apiUrl}/getall`
+      `${this.apiControllerUrl}/getall`
     );
   }
 
   isRentable(rental: Rental): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(
-      `${this.apiUrl}/isrentable`,
+      `${this.apiControllerUrl}/isrentable`,
       rental
     );
   }
 
   checkFindeksScoreSufficiency(rental: Rental): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(
-      `${this.apiUrl}/checkfindeksscoresufficiency`,
+      `${this.apiControllerUrl}/checkfindeksscoresufficiency`,
+      rental
+    );
+  }
+
+  add(rental: Rental): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(
+      `${this.apiControllerUrl}/add`,
       rental
     );
   }
