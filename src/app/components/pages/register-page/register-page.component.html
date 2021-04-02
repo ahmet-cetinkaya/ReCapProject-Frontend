@@ -82,35 +82,12 @@
         </div>
 
         <div class="mb-3">
-          <label for="password-input" class="form-label"
-            >Enter your password</label
-          >
-          <div class="input-group has-validation">
-            <input
-              [type]="isPasswordHidden()"
-              formControlName="password"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  registerForm.controls['password'].errors &&
-                  (registerForm.controls['password'].touched ||
-                    registerForm.controls['password'].dirty),
-                'is-valid':
-                  !registerForm.controls['password'].errors &&
-                  (registerForm.controls['password'].touched ||
-                    registerForm.controls['password'].dirty)
-              }"
-              id="password-input"
-              placeholder="***********"
-            />
-            <div
-              (click)="togglePasswordHidden()"
-              class="input-group-text cursor-pointer"
-            >
-              <i class="fa {{ isPasswordHiddenIcon() }}" aria-hidden="true"></i>
-            </div>
-            <div class="invalid-feedback">Please enter your password.</div>
-          </div>
+          <app-password-input
+            formControlName="password"
+            [errors]="registerForm.controls['password'].errors"
+            [touched]="registerForm.controls['password'].touched"
+            [dirty]="registerForm.controls['password'].dirty"
+          ></app-password-input>
         </div>
 
         <button

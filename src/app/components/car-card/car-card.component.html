@@ -2,6 +2,7 @@
   <div
     routerLink="/car/{{ carDetail.id }}"
     class="card-img d-flex justify-content-center align-items-center cursor-pointer"
+    appHover
   >
     <img
       src="{{ carImageUrl }}"
@@ -21,7 +22,11 @@
       {{ carDetail.brandName }} {{ carDetail.carName }}
     </h5>
     <p class="mt-1 card-text text-primary fs-3">${{ carDetail.dailyPrice }}</p>
-    <button class="btn btn-primary w-100" routerLink="/car/{{ carDetail.id }}">
+    <button
+      routerLink="/car/{{ carDetail.id }}"
+      class="btn btn-primary w-100"
+      appHover
+    >
       Rent Now
     </button>
   </div>

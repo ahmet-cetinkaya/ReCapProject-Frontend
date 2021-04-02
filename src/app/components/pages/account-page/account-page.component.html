@@ -145,63 +145,20 @@
     <div class="row">
       <div class="col">
         <div class="mb-3">
-          <label for="current-password-input" class="form-label"
-            >Enter current password</label
-          >
-          <div class="input-group has-validation">
-            <input
-              [type]="isCurrentPasswordHidden()"
-              formControlName="currentPassword"
-              id="current-password-input"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid': accountForm.controls['currentPassword'].errors
-              }"
-              placeholder="***********"
-            />
-            <div
-              (click)="toggleCurrentPasswordHidden()"
-              class="input-group-text cursor-pointer"
-            >
-              <i
-                class="fa {{ isCurrentPasswordHiddenIcon() }}"
-                aria-hidden="true"
-              ></i>
-            </div>
-            <div class="invalid-feedback">Please enter your password.</div>
-          </div>
+          <app-password-input
+            formControlName="currentPassword"
+            [errors]="accountForm.controls['currentPassword'].errors"
+            [touched]="true"
+            [dirty]="accountForm.controls['currentPassword'].dirty"
+          ></app-password-input>
         </div>
       </div>
       <div class="col">
         <div class="mb-3">
-          <label for="new-password-input" class="form-label">
-            Enter new password (Optional)
-          </label>
-          <div class="input-group has-validation">
-            <input
-              [type]="isNewPasswordHidden()"
-              formControlName="newPassword"
-              id="new-password-input"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  accountForm.controls['newPassword'].errors &&
-                  (accountForm.controls['newPassword'].touched ||
-                    accountForm.controls['newPassword'].dirty)
-              }"
-              placeholder="***********"
-            />
-            <div
-              (click)="toggleNewPasswordHidden()"
-              class="input-group-text cursor-pointer"
-            >
-              <i
-                class="fa {{ isNewPasswordHiddenIcon() }}"
-                aria-hidden="true"
-              ></i>
-            </div>
-            <div class="invalid-feedback">Please enter your password.</div>
-          </div>
+          <app-password-input
+            formControlName="newPassword"
+            label="Enter new password (Optional)"
+          ></app-password-input>
         </div>
       </div>
     </div>

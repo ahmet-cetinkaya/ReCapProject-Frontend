@@ -49,6 +49,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { AccountPageComponent } from './components/pages/account-page/account-page.component';
 import { HiddenCreditCardNoPipe } from './pipes/hidden-credit-card-no.pipe';
 import { WalletPageComponent } from './components/pages/wallet-page/wallet-page.component';
+import { HoverDirective } from './directives/hover.directive';
+import { PasswordInputComponent } from './components/password-input/password-input.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { WalletPageComponent } from './components/pages/wallet-page/wallet-page.
     AccountPageComponent,
     HiddenCreditCardNoPipe,
     WalletPageComponent,
+    HoverDirective,
+    PasswordInputComponent,
   ],
   imports: [
     BrowserModule,

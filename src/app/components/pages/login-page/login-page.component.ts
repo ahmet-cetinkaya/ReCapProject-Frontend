@@ -38,10 +38,19 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
+    console.log(
+      `! ~ file: login-page.component.ts ~ line 42 ~ this.loginForm.valid`,
+      this.loginForm.valid
+    );
+    console.log(
+      `! ~ file: login-page.component.ts ~ line 49 ~ ...this.loginForm.value`,
+      this.loginForm.value
+    );
     if (!this.loginForm.valid) {
       return;
     }
     let loginModel: LoginModel = { ...this.loginForm.value };
+
     this.authService.login(loginModel).subscribe(
       (response) => {
         this.localStorageService.set('tokenModel', response.data);
